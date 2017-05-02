@@ -1,8 +1,8 @@
 {
-  "title": "QtWS V-Play",
-  "identifier": "net.vplay.demos.qtws2016",
+  "title": "V Are Devs",
+  "identifier": "net.vplay.demos.wearedevs2017",
   "orientation": "auto",
-  "versioncode": 20,
-  "versionname": "2.0",
+  "versioncode": 1,
+  "versionname": "1.0",
   "stage": "test"
 }
