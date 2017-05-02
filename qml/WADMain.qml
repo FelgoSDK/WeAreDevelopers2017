@@ -40,5 +40,5 @@ App {
   }
 
   // loads and holds actual app content
-  QtWSLoaderItem { id: loaderItem }
+  WADLoaderItem { id: loaderItem }
 }

@@ -21,8 +21,8 @@ Rectangle {
   // game network
   VPlayGameNetwork {
     id: gameNetwork
-    gameId: 307
-    secret: "qtws2016github"
+    gameId: 353
+    secret: "wad2017github"
     gameNetworkView: gameNetworkViewItem && gameNetworkViewItem.gnView || null
 
     clearAllUserDataAtStartup: system.desktopPlatform // this can be enabled during development to simulate a first-time app start
@@ -80,7 +80,7 @@ Rectangle {
   Timer {
     id: loaderTimer
     interval: 500
-    onTriggered: mainLoader.source = Qt.resolvedUrl("QtWSMainItem.qml")
+    onTriggered: mainLoader.source = Qt.resolvedUrl("WADMainItem.qml")
   }
 
   // loading image column
