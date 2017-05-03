@@ -216,20 +216,6 @@ Item {
 
   // components for dynamic tabs/drawer entries
   Component {
-    id: tracksNavItemComponent
-    NavigationItem {
-      title: "Tracks"
-      icon: IconType.tag
-
-      NavigationStack {
-        splitView: landscape && tablet
-        TracksPage {}
-      }
-    }
-  } // tracks
-
-  // components for dynamic tabs/drawer entries
-  Component {
     id: venueNavItemComponent
     NavigationItem {
       title: "Venue"
@@ -417,7 +403,6 @@ Item {
 
     // add new platform specific pages
     if(Theme.isAndroid) {
-      navigation.addNavigationItem(tracksNavItemComponent)
       navigation.addNavigationItem(venueNavItemComponent)
       navigation.addNavigationItem(settingsNavItemComponent)
       addDummyNavItem(gameNetworkViewItem, "leaderboard", "Leaderboard", IconType.flagcheckered)
@@ -427,19 +412,17 @@ Item {
 
       if(activeTitle === "DummyPage" || activeTitle === "More") { // "More" is used when splitView is active
         if(targetItem === multiplayerViewItem && targetState === "friends")
-          navigation.currentIndex = 10
-        else if (targetItem === multiplayerViewItem)
           navigation.currentIndex = 9
-        else if(targetItem === gameNetworkViewItem && targetState === "profile")
+        else if (targetItem === multiplayerViewItem)
           navigation.currentIndex = 8
-        else if (targetItem === gameNetworkViewItem)
+        else if(targetItem === gameNetworkViewItem && targetState === "profile")
           navigation.currentIndex = 7
+        else if (targetItem === gameNetworkViewItem)
+          navigation.currentIndex = 6
       }
       else if(activeTitle === "Settings")
-        navigation.currentIndex = 6
-      else if(activeTitle === "Venue")
         navigation.currentIndex = 5
-      else if(activeTitle === "Tracks")
+      else if(activeTitle === "Venue")
         navigation.currentIndex = 4
     }
     else {
@@ -467,10 +450,6 @@ Item {
       else if(activeTitle === "Venue") {
         navigation.currentIndex = navigation.count - 1 // open more page
         navigation.currentPage.navigationStack.push(Qt.resolvedUrl("pages/VenuePage.qml"))
-      }
-      else if(activeTitle === "Tracks") {
-        navigation.currentIndex = navigation.count - 1 // open more page
-        navigation.currentPage.navigationStack.push(Qt.resolvedUrl("pages/TracksPage.qml"))
       }
     }
   }

@@ -221,16 +221,6 @@ Page {
             talk: item
             onFavoriteClicked: toggleFavorite()
             onRoomClicked: detailPage.navigationStack.push(Qt.resolvedUrl("RoomPage.qml"), { room: item.room })
-            onTrackClicked: {
-              var obj = {}
-              obj[track] = 0
-              var model = DataModel.prepareTracks(obj)
-              console.debug(JSON.stringify(model))
-              if(Theme.isAndroid)
-                detailPage.navigationStack.push(Qt.resolvedUrl("TrackDetailPage.qml"), { track: model[0] })
-              else
-                detailPage.navigationStack.push(Qt.resolvedUrl("TrackDetailPage.qml"), { track: model[0] })
-            }
           }
         }
 

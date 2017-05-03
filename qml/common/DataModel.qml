@@ -8,7 +8,6 @@ Item {
 
   property var schedule: undefined
   property var speakers: undefined
-  property var tracks: undefined
   property var favorites: undefined
   property var talks: undefined
 
@@ -146,10 +145,8 @@ Item {
 
       // store data
       dataModel.talks = talks
-      dataModel.tracks = tracks
       dataModel.schedule = data
       storage.setValue("talks", talks)
-      storage.setValue("tracks", tracks)
       storage.setValue("schedule", data)
 
       // force update of favorites as new data arrived
@@ -209,7 +206,6 @@ Item {
       // load cached data at startup
       dataModel.schedule = storage.getValue("schedule")
       dataModel.speakers = storage.getValue("speakers")
-      dataModel.tracks = storage.getValue("tracks")
       dataModel.favorites = storage.getValue("favorites")
       dataModel.talks = storage.getValue("talks")
       dataModel.notificationsEnabled = storage.getValue("notificationsEnabled") !== undefined ? storage.getValue("notificationsEnabled") : true
@@ -222,7 +218,6 @@ Item {
     storage.clearAll()
     dataModel.schedule = undefined
     dataModel.speakers = undefined
-    dataModel.tracks = undefined
     dataModel.favorites = favorites // keep favorites even when clearing cache
     dataModel.talks = undefined
     dataModel.notificationsEnabled = true
@@ -296,73 +291,5 @@ Item {
   // isVPlayTalk - checks whether a talk is by V-Play
   function isVPlayTalk(talk) {
     return talk.title.toLowerCase().indexOf("multiple platforms and best practices") > 0
-  }
-
-  // prepareTracks - prepare track data for display in TracksPage
-  function prepareTracks(tracks) {
-    if(!dataModel.talks)
-      return []
-
-    var model = []
-    for(var i in Object.keys(tracks)){
-      var track = Object.keys(tracks)[i];
-      var talks = []
-
-      for(var j in Object.keys(dataModel.talks)) {
-        var talkID = Object.keys(dataModel.talks)[j]
-        var talk = dataModel.talks[parseInt(talkID)]
-
-        if(talk !== undefined && talk.tracks.indexOf(track) > -1) {
-          talks.push(talk)
-        }
-      }
-      talks = prepareTrackTalks(talks)
-      model.push({"title" : track, "talks" : talks})
-    }
-    model.sort(compareTitle)
-
-    return model
-  }
-
-  // prepareTrackTalks - package talk data in array ready to be displayed by TimeTableDaySchedule item
-  function prepareTrackTalks(trackTalks) {
-    if(!trackTalks)
-      return []
-
-    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-
-    // get events and prepare data for sorting and sections
-    for(var idx in trackTalks) {
-      var data = trackTalks[idx]
-
-      // prepare event date for sorting
-      var date = new Date(data.day)
-      data.dayTime = date.getTime()
-
-      // prepare event section
-      var weekday = isNaN(date.getTime()) ? "Unknown" : days[ date.getDay() ]
-      data.section = weekday + ", " + (data.start.substring(0, 2) + ":00")
-
-      trackTalks[idx] = data
-    }
-
-    // sort events
-    trackTalks = trackTalks.sort(function(a, b) {
-      if(a.dayTime == b.dayTime)
-        return (a.start > b.start) - (a.start < b.start)
-      else
-        return (a.dayTime > b.dayTime) - (a.dayTime < b.dayTime)
-    })
-
-    return trackTalks
-  }
-
-  // sort tracks by title
-  function compareTitle(a,b) {
-    if (a.title < b.title)
-      return -1;
-    if (a.title > b.title)
-      return 1;
-    return 0;
   }
 }

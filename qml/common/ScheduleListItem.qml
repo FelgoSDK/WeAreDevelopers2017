@@ -49,27 +49,6 @@ Item {
     }
   }
 
-  // track indicators
-  Column {
-    id: trackCol
-    x: dp(2)
-    width: dp(4)
-    height: parent.height - 6 * x
-    spacing: x
-    anchors.verticalCenter: parent.verticalCenter
-
-    Repeater {
-      id: repeater
-      model: modelData.tracks
-      Rectangle {
-        id: trackIndicator
-        width: parent.width
-        height: ((parent.height - (trackCol.spacing * (repeater.count - 1))) / repeater.count)
-        color: loaderItem.getTrackColor(modelData)
-      }
-    }
-  }
-
   // particle effect setting
   Item {
     // usually defined by GameWindow, but we have an app here
@@ -127,13 +106,12 @@ Item {
     // Main cell content inside this item
     GridLayout {
       id: innerGrid
-      property real trackIndent: trackCol.width + trackCol.x // additional indent for track rectangles
 
       // Auto-break after 3 columns, so we do not have to set row & column manually
       columns: 4
       rowSpacing: dp(5)
       columnSpacing: dp(scheduleListItem.style.indent)
-      x: trackIndent + dp(scheduleListItem.style.indent) * 0.75
+      x: dp(scheduleListItem.style.indent) * 0.75
       width: parent.width - x - dp(scheduleListItem.style.indent)
       Layout.minimumWidth: parent.width - x - dp(scheduleListItem.style.indent)
       Layout.maximumWidth: parent.width - x - dp(scheduleListItem.style.indent)

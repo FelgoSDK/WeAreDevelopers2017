@@ -122,35 +122,6 @@ Rectangle {
     onTriggered: DataModel.loadData()
   }
 
-  // we set the lightness of the used track colors based on the Theme.backgroundColor
-  // this could be done with a simple property binding, but that strangely causes issues on Linux Qt 5.8
-  // which is why this workaround with manual signal handling is used:
-  Item {
-      id: trackColorBindingFix
-      property color baseTrackColor
-      property var baseTrackLightness
-
-      Component.onCompleted: updateBaseTrackLightness()
-      Connections {
-          target: Theme
-          onBackgroundColorChanged: trackColorBindingFix.updateBaseTrackLightness()
-      }
-
-      function updateBaseTrackLightness() {
-          trackColorBindingFix.baseTrackColor = Theme.backgroundColor
-          trackColorBindingFix.baseTrackLightness = colorToHsl(trackColorBindingFix.baseTrackColor)[2]
-      }
-  }
-
-  // getTrackColor - determines track color
-  function getTrackColor(track) {
-    if(!DataModel.tracks || DataModel.tracks[track] === undefined)
-      return Theme.secondaryTextColor
-
-    var light = 0.45 + 0.25 * (0.5 - trackColorBindingFix.baseTrackLightness)
-    return Qt.hsla(DataModel.tracks[track], 1, light, 1)
-  }
-
   // color to HSL conversion
   function colorToHsl(color) {
     var r = color.r /= 255

@@ -12,7 +12,6 @@ Rectangle {
   signal clicked
   signal favoriteClicked
   signal roomClicked
-  signal trackClicked(var track)
   property var talk
   property bool isFavorite: talk && talk.id ? DataModel.isFavorite(talk.id) : false
   property bool small: false
@@ -84,49 +83,6 @@ Rectangle {
     Column {
       width: parent.width
       spacing: small ? talkRow.spacing / 2 : talkRow.spacing
-
-      Column {
-        width: parent.width
-        spacing: small ? talkRow.spacing / 2 : talkRow.spacing
-        // tracks
-        Repeater {
-          model: talk && talk.tracks ? talk.tracks : []
-          delegate: Row {
-            x: grid.x
-            width: talkRow.width - x
-            spacing: talkRow.spacing
-
-            // track
-            Icon {
-              id: trackIcon
-              anchors.verticalCenter: parent.verticalCenter
-              icon: IconType.tag
-              color: loaderItem.getTrackColor(modelData)
-            }
-
-            AppText {
-              id: trackText
-              anchors.verticalCenter: parent.verticalCenter
-              width: parent.width - trackIcon.width - _.colSpacing
-              wrapMode: Text.WordWrap
-              text: modelData
-              color: trackIcon.color
-
-              RippleMouseArea {
-                height: parent.height * 2
-                width: parent.width + trackIcon.width + spacing
-                anchors.right: parent.right
-                anchors.verticalCenter: parent.verticalCenter
-                fixedPosition: true
-                centerAnimation: true
-                touchPoint: Qt.point(trackIcon.width * 0.5, trackIcon.height)
-                enabled: !isListItem
-                onClicked: container.trackClicked(trackText.text)
-              }
-            }
-          }
-        }
-      }
 
       // icon grid
       GridLayout {
