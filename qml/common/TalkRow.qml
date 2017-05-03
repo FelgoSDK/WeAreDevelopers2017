@@ -184,9 +184,9 @@ Rectangle {
           Layout.fillWidth: true
           Layout.alignment: Qt.AlignVCenter
           wrapMode: Text.WordWrap
-          text: talk.language
+          text: talk.language || ""
           color: _.iconColor
-          visible: talk.language.length > 0
+          visible: talk.language && talk.language.length > 0 || false
         }
 
         // type
@@ -203,9 +203,9 @@ Rectangle {
           Layout.fillWidth: true
           Layout.alignment: Qt.AlignVCenter
           wrapMode: Text.WordWrap
-          text: talk.type
+          text: talk.type || ""
           color: _.iconColor
-          visible: talk.type.length > 0
+          visible: talk.type && talk.type.length > 0 || false
         }
 
         // room

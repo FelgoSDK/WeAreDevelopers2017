@@ -7,9 +7,12 @@ Rectangle {
   height: row.height + dp(10) * 2
   width: !parent ? 0 :(small ? parent.width - dp(25) : parent.width) // dp(25) is section selection width
   color: Theme.listItem.backgroundColor
+
   property var speaker
   property bool small
   signal clicked
+
+  visible: speaker && speaker.id !== 0 || false
 
   property StyleSimpleRow style: StyleSimpleRow { }
 
@@ -31,7 +34,7 @@ Rectangle {
       id: avatar
       width: dp(speakerRow.style.fontSizeText) * 2.5
       height: width
-      source: speaker.avatar
+      source: speaker && speaker.avatar || ""
     }
 
     Column {
@@ -39,12 +42,12 @@ Rectangle {
       anchors.verticalCenter: parent.verticalCenter
 
       AppText {
-        text: speaker.first_name + " " + speaker.last_name
+        text: (speaker && speaker.first_name || "")  + " " +  (speaker && speaker.last_name || "")
         width: parent.width
       }
       Repeater {
         id: talksRepeater
-        model: speaker.talks
+        model: speaker && speaker.talks || 0
 
         AppText {
           width: small? parent.width - dp(Theme.navigationBar.defaultBarItemPadding) : parent.width

@@ -113,7 +113,7 @@ Page {
 
         // subtitle
         AppText {
-          text: item.subtitle
+          text: item.subtitle || ""
           color: Theme.secondaryTextColor
           width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 2
           anchors.horizontalCenter: parent.horizontalCenter
@@ -165,12 +165,12 @@ Page {
 
         Column {
           anchors.horizontalCenter: parent.horizontalCenter
-          width: Math.min(parent.width, mainSpeakerRow + dp(50))
+          width: mainSpeakerRow.visible ? Math.min(parent.width, mainSpeakerRow + dp(50)) : parent.width
           Row {
             id: mainSpeakerRow
             //width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 2
             anchors.horizontalCenter: parent.horizontalCenter
-            visible: item && item.persons ? true : false
+            visible: item && item.persons && item.persons[0] && item.persons[0].id !== 0 ? true : false
             spacing: dp(Theme.navigationBar.defaultBarItemPadding)
 
             // speaker image
@@ -179,7 +179,8 @@ Page {
               width:  _.speakerImgSize
               height: width
               anchors.verticalCenter: parent.verticalCenter
-              source: item && item.persons ? DataModel.speakers[item.persons[0].id].avatar : ""
+              source: item && item.persons && DataModel.speakers && DataModel.speakers[item.persons[0].id] ?
+                        DataModel.speakers[item.persons[0].id].avatar : ""
               onLoadingChanged: {
                 if(loading)
                   _.loadingCount++
@@ -262,7 +263,7 @@ Page {
           wrapMode: Text.WordWrap
           horizontalAlignment: Text.AlignHCenter
           font.italic: true
-          visible: item.abstract.length > 0
+          visible: item.abstract && item.abstract.length > 0 || false
         }
 
         // spacing
@@ -367,6 +368,7 @@ Page {
 
           Repeater {
             id: speakerRepeater
+            Component.onCompleted: console.log("PERSONS: "+JSON.stringify(item.persons))
             model: item && item.persons ? item.persons : []
             delegate: SpeakerRow {
               speaker: DataModel.speakers && DataModel.speakers[modelData.id]
