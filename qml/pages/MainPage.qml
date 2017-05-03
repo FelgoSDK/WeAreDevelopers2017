@@ -60,8 +60,14 @@ Page {
               width: parent.width
               horizontalAlignment: AppText.AlignHCenter
               color: "white"
-              text: "Qt World Summit 2016"
+              text: "WeAreDevelopers"
               font.pixelSize: sp(22)
+            }
+            AppText {
+              width: parent.width
+              horizontalAlignment: AppText.AlignHCenter
+              color: "white"
+              text: "Conference 2017"
             }
             Item {
               width: parent.width
@@ -71,13 +77,15 @@ Page {
               width: parent.width
               horizontalAlignment: AppText.AlignHCenter
               color: "white"
-              text: "18th - 20th October"
+              text: "11th - 12th May"
+              font.pixelSize: sp(14)
             }
             AppText {
               width: parent.width
               horizontalAlignment: AppText.AlignHCenter
               color: "white"
-              text: "San Francisco, USA"
+              text: "Vienna, Austria"
+              font.pixelSize: sp(14)
             }
           }
         }
