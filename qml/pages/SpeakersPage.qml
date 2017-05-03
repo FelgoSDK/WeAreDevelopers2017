@@ -37,7 +37,7 @@ ListPage {
     var model = []
     for(var i in Object.keys(speakers)){
       var speakerID = Object.keys(speakers)[i];
-      var speaker = speakers[parseInt(speakerID)]
+      var speaker = speakers[speakerID]
       speaker["firstLetter"] = speaker["last_name"].charAt(0).toUpperCase()
       model.push(speaker)
     }

@@ -28,9 +28,9 @@ Item {
   QtObject {
     id: _
 
-    // qtws 2016 api urls
-    property string qtwsApiScheduleUrl: Qt.resolvedUrl("../../assets/data/schedule.json")
-    property string qtwsApiSpeakersUrl: Qt.resolvedUrl("../../assets/data/speakers.json")
+    // wad 2017 conference data
+    property string wadScheduleUrl: Qt.resolvedUrl("../../assets/data/schedule.json")
+    property string wadSpeakersUrl: Qt.resolvedUrl("../../assets/data/speakers.json")
 
     property int loadingCount: 0
 
@@ -58,7 +58,7 @@ Item {
 
     // loadSchedule - load Qt WS 2016 schedule from api
     function loadSchedule() {
-      _.sendGetRequest(_.qtwsApiScheduleUrl, function(data) {
+      _.sendGetRequest(_.wadScheduleUrl, function(data) {
         _.processScheduleData(data)
         // load speakers after schedule is processed
         _.loadSpeakers()
@@ -67,32 +67,41 @@ Item {
 
     // loadSpeakers - load Qt WS 2016 speakers from api
     function loadSpeakers() {
-      _.sendGetRequest(_.qtwsApiSpeakersUrl, function(data) {
+      _.sendGetRequest(_.wadSpeakersUrl, function(data) {
         _.processSpeakersData(data)
       })
     }
 
     // processScheduleData - process schedule data for usage in UI
     function processScheduleData(data) {
-      // retrieve tracks and talks and build model for tracks, talks and schedule
-      var tracks = {}
+      // retrieve talks and build model for talks and schedule
       var talks = {}
-      for(var day in data.conference.days) {
-        for(var room in data.conference.days[day]["rooms"])
+
+      // rewrite key of days to match "YYYY-MM-DD"
+      var keys = Object.keys(data.conference.days)
+      for(var dayIdx in keys) {
+        var day = keys[dayIdx]
+        var dayData = data.conference.days[day]
+        delete data.conference.days[day]
+
+        if(day === "may-11-day-1")
+          day = "2017-05-11"
+        else
+          day = "2017-05-12"
+
+        // re-add day with correct key
+        data.conference.days[day] = dayData
+      }
+
+      // parse conference schedule
+      for(day in data.conference.days) {
+        for(var room in data.conference.days[day]["rooms"]) {
           for (var eventIdx in data.conference.days[day]["rooms"][room]) {
             var event = data.conference.days[day]["rooms"][room][eventIdx]
 
-            // calculate event end time
-            var start = event.start.split(":")
-            var duration = event.duration.split(":")
-            var end = [parseInt(start[0])+parseInt(duration[0]),
-                       parseInt(start[1])+parseInt(duration[1])]
-            if(end[1] > 60) {
-              end[1] -= 60
-              end[0] += 1
-            }
-
             // format start and end time
+            var start = event.start.split(":")
+            var end = event.end.split(":")
             event.start = _.format2DigitTime(start[0]) + ":" + _.format2DigitTime(start[1])
             event.end = _.format2DigitTime(end[0]) + ":" + _.format2DigitTime(end[1])
 
@@ -104,10 +113,21 @@ Item {
             // add day of event (for favorites)
             event.day = day
 
-            // build tracks model
-            if(event["tracks"] !== undefined && Array.isArray(event["tracks"])) {
-              for(var idx in event["tracks"])
-                tracks[event["tracks"][idx]] = 0
+            for(var speakerIdx in event.persons) {
+              var speaker = event.persons[speakerIdx]
+
+              // replace whitespace in speaker id (full name), "sebastian krumhausen" -> "sebastiankrumhausen"
+              // "0" is id for speakers without speaker details, do nothing in that case
+              var speakerId = speaker.id !== 0 ? speaker.id.replace(/ /g,'') : speaker.id
+              speaker.id = speakerId
+
+              // first name property of WAD data includes last name as well -> split up
+              var separatorIdx = speaker.first_name.lastIndexOf(" ")
+              speaker.last_name = speaker.first_name.substr(separatorIdx + 1)
+              speaker.first_name = speaker.first_name.substr(0, separatorIdx)
+
+              // replace speaker entry with changed speaker
+              event.persons[speakerIdx] = speaker
             }
 
             // build talks model
@@ -121,14 +141,7 @@ Item {
             // replace talks in schedule with talk-id
             data.conference.days[day]["rooms"][room][eventIdx] = event["id"]
           }
-      }
-
-      //  define track colors
-      var hueDiff = 1 / Object.keys(tracks).length
-      var i = 0
-      for(var track in tracks) {
-        tracks[track] = i * hueDiff
-        i++
+        }
       }
 
       // store data
@@ -151,7 +164,18 @@ Item {
       var speakers = {}
       for(var i = 0; i < data.length; i++) {
         var speaker = data[i]
-        speakers[speaker.id] = speaker
+
+        // replace whitespace in speaker id (full name), "sebastian krumhausen" -> "sebastiankrumhausen"
+        var speakerId = speaker.id.replace(/ /g,'')
+        speaker.id = speakerId
+
+        // first name property of WAD data includes last name as well -> split up
+        var separatorIdx = speaker.first_name.lastIndexOf(" ")
+        speaker.last_name = speaker.first_name.substr(separatorIdx + 1)
+        speaker.first_name = speaker.first_name.substr(0, separatorIdx)
+
+        // add to speakers model
+        speakers[speakerId] = speaker
 
         var talks= []
         for (var j in Object.keys(dataModel.talks)) {
@@ -160,12 +184,12 @@ Item {
           var persons = talk.persons
 
           for(var k in persons) {
-            if(persons[k].id === speaker.id) {
+            if(persons[k].id === speakerId) {
               talks.push(talkID.toString())
             }
           }
         }
-        speakers[speaker.id]["talks"] = talks
+        speakers[speakerId]["talks"] = talks
       }
       // store data
       dataModel.speakers = speakers
