@@ -14,7 +14,7 @@ Page {
 
     Image {
       id: img
-      source: "../../assets/QtWS2016_logo.png"
+      source: Theme.isAndroid ? "../../assets/WAD2017_logo_android.png" : "../../assets/WAD2017_logo_ios.png"
       width: dp(150)
       height: parent.height
       fillMode: Image.PreserveAspectFit

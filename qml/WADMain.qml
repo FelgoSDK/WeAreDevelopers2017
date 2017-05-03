@@ -15,7 +15,7 @@ App {
       Theme.platform = "android"
 
     // default theme setup
-    Theme.colors.tintColor = "green"
+    Theme.colors.tintColor = "#FF164C"
   }
 
   // local notifications (not within loader item to deactivate notifications within V-Play Demo Launcher app)

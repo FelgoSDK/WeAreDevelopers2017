@@ -23,7 +23,7 @@ Page {
           width: parent.width
           height: width / sourceSize.width * sourceSize.height
           fillMode: AppImage.PreserveAspectFit
-          source: "../../assets/pier_27.jpg"
+          source: "../../assets/WAD2017_background.jpg"
           anchors.bottom: parent.bottom
         }
       }

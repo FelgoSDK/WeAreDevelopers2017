@@ -97,14 +97,14 @@ Item {
       AppImage {
         width: parent.width
         fillMode: AppImage.PreserveAspectFit
-        source: "../assets/pier_27.jpg"
+        source: "../assets/WAD2017_background.jpg"
         anchors.verticalCenter: parent.verticalCenter
       }
 
       AppImage {
         width: parent.width
         fillMode: AppImage.PreserveAspectFit
-        source: "../assets/pier_27.jpg"
+        source: "../assets/WAD2017_background.jpg"
         anchors.verticalCenter: parent.verticalCenter
         opacity: 0.25
         layer.enabled: true
@@ -131,7 +131,7 @@ Item {
 
       AppImage {
         width: parent.width * 0.75
-        source: "../assets/QtWS2016_logo.png"
+        source: "../assets/WAD2017_logo_android.png"
         fillMode: AppImage.PreserveAspectFit
         anchors.horizontalCenter: parent.horizontalCenter
         y: Theme.statusBarHeight + ((parent.height - Theme.statusBarHeight) - height) * 0.5
