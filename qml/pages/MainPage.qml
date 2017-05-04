@@ -40,6 +40,7 @@ Page {
       width: parent.width
       spacing: dp(10)
 
+      // General V-Play Description
       Column {
         width: parent.width
 
@@ -129,6 +130,7 @@ Page {
         height: 1
       }
 
+      // Code Savings Description
       AppText {
         width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 4
         anchors.horizontalCenter: parent.horizontalCenter
@@ -176,6 +178,7 @@ Page {
         text: "<b>How is this possible?</b> By using QML (Qt Markup Language) + JavaScript for rapid cross-platform development:"
       }
 
+      // Code Example
       Rectangle {
         width: parent.width
         height: codeFlickable.height + dp(Theme.navigationBar.defaultBarItemPadding * 2)
@@ -269,6 +272,7 @@ Page {
         }
       }
 
+      // More V-Play Features
       AppText {
         width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 2
         anchors.horizontalCenter: parent.horizontalCenter
