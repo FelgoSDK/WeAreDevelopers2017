@@ -303,13 +303,13 @@ Page {
 </ul>"
       }
 
-      // spacer
+      // Spacer
       Item {
         width: parent.width
         height: dp(Theme.navigationBar.defaultBarItemPadding)
       }
 
-      // bottom CTA
+      // Bottom CTA
       Column {
         width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 4
         anchors.horizontalCenter: parent.horizontalCenter
@@ -330,7 +330,7 @@ Page {
         }
       }
 
-      // spacer
+      // Spacer
       Item {
         width: parent.width
         height: dp(Theme.navigationBar.defaultBarItemPadding)
