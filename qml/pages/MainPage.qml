@@ -427,7 +427,7 @@ Page {
                 font.pixelSize: sp(11)
                 color: Theme.secondaryTextColor
                 horizontalAlignment: AppText.AlignHCenter
-                text: "This app includes all open-source demo & example apps of V-Play!"
+                text: "This app includes all open source demos & examples of V-Play Apps!"
               }
             } // Showcase Column
 
