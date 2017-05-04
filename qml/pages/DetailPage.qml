@@ -179,7 +179,8 @@ Page {
               width:  _.speakerImgSize
               height: width
               anchors.verticalCenter: parent.verticalCenter
-              source: item && item.persons && DataModel.speakers && DataModel.speakers[item.persons[0].id] ?
+              source: item && item.persons && item.persons.length > 0
+                      && DataModel.speakers && DataModel.speakers[item.persons[0].id] ?
                         DataModel.speakers[item.persons[0].id].avatar : ""
               onLoadingChanged: {
                 if(loading)
@@ -196,7 +197,7 @@ Page {
               width: _.speakerTxtWidth
               anchors.verticalCenter: parent.verticalCenter
               wrapMode: Text.WordWrap
-              text: item && item.persons ? item.persons[0]["full_public_name"] : ""
+              text: item && item.persons && item.persons.length > 0 ? item.persons[0]["full_public_name"] : ""
               RippleMouseArea {
                 width: mainSpeakerRow.width
                 height: mainSpeakerRow.height
@@ -354,6 +355,7 @@ Page {
 
           SimpleSection {
             title: "Speakers"
+            visible: speakerRepeater.model.length > 0
           }
 
           Repeater {
