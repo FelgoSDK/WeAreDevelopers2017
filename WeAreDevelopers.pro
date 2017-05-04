@@ -46,7 +46,7 @@ ios {
     OTHER_FILES += $$QMAKE_INFO_PLIST
 
     # activate plugins
-    # VPLAY_PLUGINS += onesignal
+    VPLAY_PLUGINS += onesignal
 }
 
 # set application icons for win and macx
