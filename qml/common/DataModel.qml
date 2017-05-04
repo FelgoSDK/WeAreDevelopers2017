@@ -98,6 +98,12 @@ Item {
           for (var eventIdx in data.conference.days[day]["rooms"][room]) {
             var event = data.conference.days[day]["rooms"][room][eventIdx]
 
+            // skip duplicates of general events for each room
+            if(talks[event.id] !== undefined) {
+              data.conference.days[day]["rooms"][room][eventIdx] = undefined // REMOVE EVENT
+              continue
+            }
+
             // format start and end time
             var start = event.start.split(":")
             var end = event.end.split(":")
