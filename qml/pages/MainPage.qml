@@ -4,7 +4,6 @@ import "../common"
 
 Page {
   title: "Main"
-  backgroundColor: Theme.tintColor
 
   // set up navigation bar
   titleItem: Item {
