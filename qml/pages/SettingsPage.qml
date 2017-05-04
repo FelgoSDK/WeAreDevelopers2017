@@ -8,6 +8,7 @@ Page {
   rightBarItem: ActivityIndicatorBarItem { opacity: DataModel.loading ? 1 : 0 }
 
   AppFlickable {
+    id: flick
     anchors.fill: parent
     anchors.centerIn: parent
     contentWidth: width
@@ -285,4 +286,8 @@ Page {
       } // Row
     } // GridLayout
   } // Flickable
+
+  ScrollIndicator {
+    flickable: flick
+  }
 } // Page

@@ -7,6 +7,7 @@ Page {
   title: "Venue"
 
   AppFlickable {
+    id: flick
     anchors.fill: parent
     contentWidth: parent.width
     contentHeight: contentCol.height
@@ -125,4 +126,7 @@ Page {
     }
   }
 
+  ScrollIndicator {
+    flickable: flick
+  }
 }

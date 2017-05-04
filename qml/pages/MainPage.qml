@@ -22,6 +22,7 @@ Page {
   }
 
   AppFlickable {
+    id: flick
     anchors.fill: parent
     anchors.centerIn: parent
     contentWidth: width
@@ -443,7 +444,9 @@ Page {
     } // Column
   } // Flickable
 
-
+  ScrollIndicator {
+    flickable: flick
+  }
 
   // confirmOpenUrl - display confirm dialog before opening v-play url
   function confirmOpenUrl(url) {
