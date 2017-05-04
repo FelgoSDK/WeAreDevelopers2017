@@ -3,6 +3,7 @@ import QtQuick 2.0
 import QtGraphicalEffects 1.0
 
 Page {
+  id: venuePage
   title: "Venue"
 
   AppFlickable {
@@ -103,6 +104,17 @@ Page {
           width: parent.width
           color: Theme.listItem.dividerColor
           height: px(1)
+        }
+      }
+
+      AppImage {
+        width: parent.width
+        fillMode: AppImage.PreserveAspectFit
+        source: "../../assets/rooms/GENERAL.png"
+
+        MouseArea {
+          anchors.fill: parent
+          onClicked: venuePage.navigationStack.push(Qt.resolvedUrl("RoomPage.qml"), { room: "GENERAL" })
         }
       }
 
