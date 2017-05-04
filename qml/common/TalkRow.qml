@@ -272,7 +272,7 @@ Rectangle {
             centerAnimation: true
             touchPoint: Qt.point(webIcon.width * 0.5, webIcon.height)
             anchors.centerIn: parent
-            onClicked: nativeUtils.openUrl("http://www.qtworldsummit.com/sessions/"+talk.slug)
+            onClicked: nativeUtils.openUrl("https://www.wearedevelopers.com/conference/schedule/"+( talk.day === "2017-05-12" ? "#may-12-day-2" : ""))
           }
         }
 
@@ -311,7 +311,7 @@ Rectangle {
             centerAnimation: true
             touchPoint: Qt.point(shareIcon.width * 0.5, shareIcon.height)
             anchors.centerIn: parent
-            onClicked: nativeUtils.share("I am attending \"" + talk.title + "\" at Qt World Summit 2016!","http://www.qtworldsummit.com/sessions/"+talk.slug)
+            onClicked: nativeUtils.share("I am attending \"" + talk.title + "\" at WeAreDevelopers Conference 2017!","https://www.wearedevelopers.com/conference/schedule/"+( talk.day === "2017-05-12" ? "#may-12-day-2" : ""))
           }
         }
       } // icon grid
