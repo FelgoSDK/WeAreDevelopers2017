@@ -110,6 +110,7 @@ Page {
 
       SimpleSection {
         title: "Talks"
+        visible: speakerRepeater.model.length > 0
       }
 
       Repeater {
