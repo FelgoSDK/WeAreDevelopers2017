@@ -335,6 +335,112 @@ Page {
         width: parent.width
         height: dp(Theme.navigationBar.defaultBarItemPadding)
       }
+
+      // Link to Demos
+      Rectangle {
+        width: parent.width
+        height: demosContent.height + 2 * dp(Theme.navigationBar.defaultBarItemPadding)
+        color: "#eeeeee"
+
+        Column {
+          id: demosContent
+          width: parent.width
+          anchors.verticalCenter: parent.verticalCenter
+          spacing: parent.parent.spacing
+
+          AppText {
+            id: demosText
+            width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 2
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.pixelSize: sp(12)
+            horizontalAlignment: Text.AlignHCenter
+            wrapMode: Text.WordWrap
+            color: Theme.secondaryTextColor
+            text: "Try more of the 60 other open-source V-Play Apps like:"
+          }
+
+          // Demos Grid
+          Item {
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - 2 * dp(Theme.navigationBar.defaultBarItemPadding)
+            height: Math.max(unoCol.height, showcaseCol.height)
+
+            // One Card Demo
+            Column {
+              id: unoCol
+              width: (parent.width - dp(Theme.navigationBar.defaultBarItemPadding)) * 0.5
+              spacing: dp(Theme.navigationBar.defaultBarItemPadding) * 0.5
+
+              AppText {
+                text: "One Card! - UNO Game"
+                font.pixelSize: sp(12)
+                anchors.horizontalCenter: parent.horizontalCenter
+              }
+
+              AppImage {
+                width: parent.width * 0.5
+                fillMode: AppImage.PreserveAspectFit
+                anchors.horizontalCenter: parent.horizontalCenter
+                source: "../../assets/logo-onecard.png"
+              }
+
+              AppText {
+                width: parent.width
+                font.pixelSize: sp(11)
+                color: Theme.secondaryTextColor
+                horizontalAlignment: AppText.AlignHCenter
+                text: "Play UNO with your friends in this multiplayer card game!"
+              }
+            } // One Card Column
+
+            MouseArea {
+              anchors.fill: unoCol
+              onClicked: {
+                var url = Theme.isAndroid ? "https://play.google.com/store/apps/details?id=net.vplay.demos.ONECard" : "https://itunes.apple.com/at/app/id1112447141?mt=8"
+                nativeUtils.openUrl(url)
+              }
+            }
+
+            // Showcase Demo
+            Column {
+              id: showcaseCol
+              width: unoCol.width
+              anchors.left: unoCol.right
+              anchors.leftMargin: spacing
+              spacing: unoCol.spacing
+
+              AppText {
+                text: "V-Play Showcase App"
+                font.pixelSize: sp(12)
+                anchors.horizontalCenter: parent.horizontalCenter
+              }
+
+              AppImage {
+                width: parent.width * 0.5
+                fillMode: AppImage.PreserveAspectFit
+                anchors.horizontalCenter: parent.horizontalCenter
+                source: "../../assets/logo-showcase.png"
+              }
+
+              AppText {
+                width: parent.width
+                font.pixelSize: sp(11)
+                color: Theme.secondaryTextColor
+                horizontalAlignment: AppText.AlignHCenter
+                text: "This app includes all open-source demo & example apps of V-Play!"
+              }
+            } // Showcase Column
+
+            MouseArea {
+              anchors.fill: showcaseCol
+              onClicked: {
+                var url = Theme.isAndroid ? "https://play.google.com/store/apps/details?id=net.vplay.demos.apps.showcaseapp" : "https://itunes.apple.com/at/app/id1040477271?mt=8"
+                nativeUtils.openUrl(url)
+              }
+            }
+          } // Demos Grid
+        } // Demos Content
+      } // Rectangle
     } // Column
   } // Flickable
 
