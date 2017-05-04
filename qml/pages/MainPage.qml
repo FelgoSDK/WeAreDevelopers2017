@@ -75,7 +75,7 @@ Page {
               textFormat: AppText.RichText
               onLinkActivated: nativeUtils.openUrl(link)
               text: "<style>a:link { color: "+Theme.tintColor+";}</style>
-<ul><li><b>Only ~2900 lines of code</b> - download the full project source on <a href=\"https://github.com/V-Play/WeAreDevelopers2017\">GitHub</a></li>
+<ul><li><b>Only ~2900 lines of code</b> - download the full project source on GitHub <a href=\"https://github.com/V-Play/WeAreDevelopers2017\">here</a></li>
 
 <li><b>Build cross-platform native apps</b> for iOS, Android, Win Phone, Desktop & Embedded</li>
 
