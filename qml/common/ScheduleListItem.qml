@@ -49,6 +49,40 @@ Item {
     }
   }
 
+  // track indicators
+  Column {
+    id: trackCol
+    x: dp(2)
+    width: dp(4)
+    height: parent.height - 6 * x
+    spacing: x
+    anchors.verticalCenter: parent.verticalCenter
+
+      Rectangle {
+        id: trackIndicator
+        width: parent.width
+        height: parent.height
+        color: {
+          if(item.room === "GENERAL")
+            return "darkgrey"
+          else if(item.room === "MAIN STAGE")
+            return Theme.tintColor
+          else if(item.room === "YELLOW STAGE")
+            return "yellow"
+          else if(item.room === "GREEN STAGE")
+            return "green"
+          else if(item.room === "IGLOO 1")
+            return "cyan"
+          else if(item.room === "IGLOO 2")
+            return "blue"
+          else if(item.room === "EXECUTIVE TRACK")
+            return "lightblue"
+          else if(item.room === "CO-WORKING SPACE")
+            return "purple"
+        }
+      }
+  }
+
   // particle effect setting
   Item {
     // usually defined by GameWindow, but we have an app here
@@ -106,12 +140,13 @@ Item {
     // Main cell content inside this item
     GridLayout {
       id: innerGrid
+      property real trackIndent: trackCol.width + trackCol.x // additional indent for track rectangles
 
       // Auto-break after 3 columns, so we do not have to set row & column manually
       columns: 4
       rowSpacing: dp(5)
       columnSpacing: dp(scheduleListItem.style.indent)
-      x: dp(scheduleListItem.style.indent) * 0.75
+      x: trackIndent + dp(scheduleListItem.style.indent) * 0.75
       width: parent.width - x - dp(scheduleListItem.style.indent)
       Layout.minimumWidth: parent.width - x - dp(scheduleListItem.style.indent)
       Layout.maximumWidth: parent.width - x - dp(scheduleListItem.style.indent)
