@@ -132,10 +132,10 @@ Page {
 
       // Code Savings Description
       AppText {
-        width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 4
+        width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 2
         anchors.horizontalCenter: parent.horizontalCenter
         font.pixelSize: sp(12)
-        horizontalAlignment: Text.AlignJustify
+        horizontalAlignment: Text.AlignHCenter
         wrapMode: Text.WordWrap
         color: Theme.secondaryTextColor
         text: "V-Play boosts development speed compared to other engines like React Native, Titanium or Xamarin:"
@@ -169,7 +169,7 @@ Page {
       }
 
       AppText {
-        width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 4
+        width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 2
         anchors.horizontalCenter: parent.horizontalCenter
         font.pixelSize: sp(12)
         horizontalAlignment: Text.AlignHCenter
@@ -311,7 +311,7 @@ Page {
 
       // bottom CTA
       Column {
-        width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 2
+        width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 4
         anchors.horizontalCenter: parent.horizontalCenter
         spacing: dp(Theme.navigationBar.defaultBarItemPadding) * 0.5
 
