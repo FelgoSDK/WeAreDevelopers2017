@@ -298,7 +298,9 @@ Page {
 <li>Powerful for feature-rich UIs + animations</li>
 <li>Responsive Layout Support</li>
 <li>Easy to learn in days</li>
-<li>Support for 3D, sensors + more</li></ul>"
+<li>Support for 3D, sensors & more</li>
+<li>You can even create games with V-Play!</li>
+</ul>"
       }
 
       // spacer
