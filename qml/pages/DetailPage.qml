@@ -360,7 +360,6 @@ Page {
 
           Repeater {
             id: speakerRepeater
-            Component.onCompleted: console.log("PERSONS: "+JSON.stringify(item.persons))
             model: item && item.persons ? item.persons : []
             delegate: SpeakerRow {
               speaker: DataModel.speakers && DataModel.speakers[modelData.id]
