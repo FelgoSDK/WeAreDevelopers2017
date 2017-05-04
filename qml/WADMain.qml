@@ -34,7 +34,7 @@ App {
       }
       else {
         // default notification
-        NativeDialog.confirm("The conference starts soon!", "Thanks for using our app, we wish you a great Qt World Summit 2016!", function(){}, false)
+        NativeDialog.confirm("The conference starts soon!", "Thanks for using our app, we wish you a great WeAreDevelopers Conference 2017!", function(){}, false)
       }
     }
   }
