@@ -37,82 +37,23 @@ Page {
     // page content
     Column {
       id: content
-      //y: spacing * 2
-      //width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 2
-      //anchors.horizontalCenter: parent.horizontalCenter
       width: parent.width
       spacing: dp(10)
 
       Column {
         width: parent.width
-        //height: qwsWrapper.height + vplayWrapper.height
-
-        Rectangle {
-          id: qwsWrapper
-          height: dp(150)
-          width: parent.width
-          color: Theme.tintColor
-          Column {
-            width: parent.width
-            anchors.verticalCenter: parent.verticalCenter
-            //spacing: dp(0)
-            AppText {
-              width: parent.width
-              horizontalAlignment: AppText.AlignHCenter
-              color: "white"
-              text: "WeAreDevelopers"
-              font.pixelSize: sp(22)
-            }
-            AppText {
-              width: parent.width
-              horizontalAlignment: AppText.AlignHCenter
-              color: "white"
-              text: "Conference 2017"
-            }
-            Item {
-              width: parent.width
-              height: dp(Theme.navigationBar.defaultBarItemPadding)
-            }
-            AppText {
-              width: parent.width
-              horizontalAlignment: AppText.AlignHCenter
-              color: "white"
-              text: "11th - 12th May"
-              font.pixelSize: sp(14)
-            }
-            AppText {
-              width: parent.width
-              horizontalAlignment: AppText.AlignHCenter
-              color: "white"
-              text: "Vienna, Austria"
-              font.pixelSize: sp(14)
-            }
-          }
-        }
 
         Rectangle {
           id: vplayWrapper
-          height: dp(200)
+          height: vplayBlockColumn.height + 2 * dp(Theme.navigationBar.defaultBarItemPadding)
           width: parent.width
           color: Theme.isIos ? Theme.secondaryBackgroundColor : "#09102b"
 
           Column {
+            id: vplayBlockColumn
             width: parent.width
             anchors.verticalCenter: parent.verticalCenter
             spacing: dp(Theme.navigationBar.defaultBarItemPadding)
-
-            Image {
-              source: "../../assets/vplay-logo.png"
-              width: dp(60)
-              height: width / sourceSize.width * sourceSize.height
-              anchors.horizontalCenter: parent.horizontalCenter
-
-              MouseArea {
-                anchors.fill: parent
-                onClicked: confirmOpenUrl()
-
-              }
-            }
 
             AppText {
               width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 2
@@ -121,22 +62,48 @@ Page {
               horizontalAlignment: Text.AlignHCenter
               wrapMode: Text.WordWrap
               color: Theme.isIos ? Theme.textColor : "#fff"
-              text: "This Qt World Summit 2016 conference app was built with V-Play Engine using Qt 5.7."
+              text: "This app was made with <b>V-Play Engine</b>!"
             }
 
-            /*AppText {
-              text: "powered by V-Play Engine"
-              font.bold: true
-              font.pixelSize: sp(10)
+            AppText {
               width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 2
               anchors.horizontalCenter: parent.horizontalCenter
-            }*/
+              font.pixelSize: sp(12)
+              wrapMode: Text.WordWrap
+              color: Theme.isIos ? Theme.textColor : "#fff"
+              textFormat: AppText.RichText
+              onLinkActivated: nativeUtils.openUrl(link)
+              text: "<style>a:link { color: "+Theme.tintColor+";}</style>
+<ul><li><b>Only ~3500 lines of code</b> - download the full project source on <a href=\"https://github.com/V-Play/WeAreDevelopers2017\">GitHub</a></li>
 
-            AppButton {
+<li><b>Build cross-platform native apps</b> for iOS, Android, Win Phone, Desktop & Embedded</li>
+
+<li><b>Native UI & UX:</b> Native navigation, No platform-specific code, 100% same source code</li>
+
+<li><b>V-Play is based on Qt</b> and offers a native performance, responsive layouts and fluid animations</li>
+
+<li><b>Fast UI development</b> with QML and JavaScript, which is compiled to C++</li>"
+            }
+
+            Column {
+              width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 2
               anchors.horizontalCenter: parent.horizontalCenter
-              text: "More Information"
-              onClicked: confirmOpenUrl()
-              //textColor: "#fff"
+              spacing: dp(Theme.navigationBar.defaultBarItemPadding) * 0.5
+
+              AppText {
+                text: "V-Play Engine is free to use:"
+                color: Theme.isIos ? Theme.textColor : "#fff"
+                width: parent.width
+                horizontalAlignment: Text.AlignHCenter
+                font.pixelSize: sp(12)
+              }
+
+              AppButton {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "More Info & Download"
+                onClicked: confirmOpenUrl("https://v-play.net/wad-conference-in-app")
+                verticalMargin: 0
+              }
             }
           }
 
@@ -162,35 +129,6 @@ Page {
         height: 1
       }
 
-      /*AppText {
-        text: DataModel.schedule ? DataModel.schedule.conference.title : ""
-        anchors.horizontalCenter: parent.horizontalCenter
-      }
-
-      AppText {
-        text: (DataModel.schedule ? "Start: " + DataModel.schedule.conference.start : "")
-        font.pixelSize: sp(12)
-        anchors.horizontalCenter: parent.horizontalCenter
-      }
-
-      AppText {
-        text: (DataModel.schedule ? "End: " +  DataModel.schedule.conference.end : "")
-        font.pixelSize: sp(12)
-        anchors.horizontalCenter: parent.horizontalCenter
-      }*/
-
-      // separator
-      /*Item {
-        width: parent.width
-        height: parent.spacing * 2
-        Rectangle {
-          width: parent.width * 0.4
-          height: px(1)
-          color: Theme.tintColor
-          anchors.centerIn: parent
-        }
-      }*/
-
       AppText {
         width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 4
         anchors.horizontalCenter: parent.horizontalCenter
@@ -198,23 +136,195 @@ Page {
         horizontalAlignment: Text.AlignJustify
         wrapMode: Text.WordWrap
         color: Theme.secondaryTextColor
-        text: "This app is open-source and comes with a download of V-Play SDK. To download the free V-Play SDK and start building native mobile apps, go to https://v-play.net/.
-
-The app showcases how Qt Quick Controls 2 and the V-Play Components can be mixed together to create apps that:
- • Support multiple platforms, screen sizes and screen resolutions.
- • Provide a native look and feel for different platforms from a single code base.
- • Handle mobile app specific requirements like offline capability.
- • Use native device features like confirmation dialogs.
-
-V-Play is based on the Qt framework. Qt is a powerful cross-platform toolkit based on C++ which enables powerful animations with Qt Quick and native performance on all major mobile platforms.
-
-V-Play extends the Qt 5 framework with components that you can test with this app. These are for example:
- • Components that allow native user experience on all major mobile platforms with a single code base. E.g. on iOS you will experience swipe back gesture support, while on other platforms a navigation drawer is used – this is supported automatically without any change of code.
- • Full range of native widgets optimized for a native platform behavior like tabs, dialogs and list views.
-
-The V-Play SDK allows native user experience with a single code base and fluid animations. You can download it together with the full source code of this app for free at https://v-play.net/."
+        text: "V-Play boosts development speed compared to other engines like React Native, Titanium or Xamarin:"
       }
 
+      AppImage {
+        width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 2
+        fillMode: AppImage.PreserveAspectFit
+        source: "../../assets/code-savings.png"
+        anchors.horizontalCenter: parent.horizontalCenter
+        MouseArea {
+          anchors.fill: parent
+          onClicked: PictureViewer.show(getApplication(), parent.source)
+        }
+      }
+
+      AppText {
+        width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 2
+        anchors.horizontalCenter: parent.horizontalCenter
+        font.pixelSize: sp(12)
+        horizontalAlignment: Text.AlignHCenter
+        wrapMode: Text.WordWrap
+        text: "Save up to 90% Source Code with V-Play!"
+      }
+
+      AppButton {
+        anchors.horizontalCenter: parent.horizontalCenter
+        text: "Show Code Comparison in Detail"
+        onClicked: confirmOpenUrl("https://v-play.net/code-comparison-in-app")
+        verticalMargin: 0
+      }
+
+      AppText {
+        width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 4
+        anchors.horizontalCenter: parent.horizontalCenter
+        font.pixelSize: sp(12)
+        horizontalAlignment: Text.AlignHCenter
+        wrapMode: Text.WordWrap
+        color: Theme.secondaryTextColor
+        text: "<b>How is this possible?</b> By using QML (Qt Markup Language) + JavaScript for rapid cross-platform development:"
+      }
+
+      Rectangle {
+        width: parent.width
+        height: codeFlickable.height + dp(Theme.navigationBar.defaultBarItemPadding * 2)
+        color: "#eeeeee"
+
+        AppFlickable {
+          id: codeFlickable
+          width: parent.width
+          height: codeSample.height
+          contentWidth: codeSample.implicitWidth + codeSample.x * 2
+          anchors.centerIn: parent
+          flickableDirection: Flickable.HorizontalFlick
+
+          AppText {
+            id: codeSample
+            x: dp(Theme.navigationBar.defaultBarItemPadding)
+            font.family: 'Courier New'
+            font.pixelSize: sp(12)
+            textFormat: AppText.RichText
+            text: "<style>span.comment { color: 'darkgreen'; } span.keyword { color: '#777700'; } span.property { color: 'darkred'; } span.type { color: 'purple'; } span.inlinecomment { color: '#555555'; } </style>
+<span class='type'>Window</span> {<br/>
+&nbsp; <span class='property'>visible</span>: true<br/>
+&nbsp; <span class='comment'>// property (variable) with type integer</span><br/>
+&nbsp; <span class='keyword'>property int</span> <span class='property'>count</span>: 0<br/>
+<br/>
+&nbsp; <span class='comment'>// pretty useful function</span><br/>
+&nbsp; <span class='keyword'>function</span> iDoNothing() { }<br/>
+<br/>
+&nbsp; <span class='comment'>// background, changing color whenever the user presses the MouseArea</span><br/>
+&nbsp; <span class='type'>Rectangle</span> {<br/>
+&nbsp;&nbsp;&nbsp; <span class='property'>color</span>: mouseArea.pressed ? <span class='comment'>\"lightblue\"</span> : <span class='comment'>\"lightgrey\"</span> <span class='inlinecomment'>// property binding</span><br/>
+&nbsp;&nbsp;&nbsp; <span class='property'>anchors.fill</span>: parent<br/>
+&nbsp; }<br/>
+<br/>
+&nbsp; <span class='comment'>// text element displaying text and number of clicks</span><br/>
+&nbsp; <span class='type'>Text</span> {<br/>
+&nbsp;&nbsp;&nbsp; <span class='property'>text</span>: <span class='comment'>\"Hello V-Play! \"</span> + count <span class='inlinecomment'>// property binding</span><br/>
+&nbsp;&nbsp;&nbsp; <span class='property'>anchors.centerIn</span>: parent<br/>
+&nbsp;&nbsp;&nbsp; <span class='property'>font.pixelSize</span>: 18<br/>
+&nbsp;&nbsp;&nbsp; <span class='property'>font.bold</span>: count > 5 <span class='inlinecomment'>// property binding</span><br/>
+&nbsp; }<br/>
+<br/>
+&nbsp; <span class='comment'>// listen to mouse/touch interactions</span><br/>
+&nbsp; <span class='type'>MouseArea</span> {<br/>
+&nbsp;&nbsp;&nbsp; <span class='property'>id</span>: mouseArea<br/>
+&nbsp;&nbsp;&nbsp; <span class='property'>anchors.fill</span>: parent<br/>
+&nbsp;&nbsp;&nbsp; <span class='property'>onPressed</span>: {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count++<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iDoNothing()<br/>
+&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp; }<br/>
+}
+"
+          } // Text
+        } // Flickable
+      } // Rectangle
+
+      AppText {
+        width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 2
+        anchors.horizontalCenter: parent.horizontalCenter
+        font.pixelSize: sp(12)
+        horizontalAlignment: Text.AlignHCenter
+        wrapMode: Text.WordWrap
+        color: Theme.secondaryTextColor
+        font.bold: true
+        text: "This produces the following example:"
+      }
+
+      Rectangle {
+        id: exampleRect
+        width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 2
+        color: mouseArea.pressed ? "lightblue" : "lightgrey"
+        height: dp(75)
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        property int count: 0
+
+        Text {
+          text: "Hello V-Play! " + parent.count
+          anchors.centerIn: parent
+          font.pixelSize: sp(14)
+          font.bold: parent.count > 5
+        }
+
+        MouseArea {
+          id : mouseArea
+          anchors.fill: parent
+          onPressed: {
+            exampleRect.count++
+          }
+        }
+      }
+
+      AppText {
+        width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 2
+        anchors.horizontalCenter: parent.horizontalCenter
+        font.pixelSize: sp(12)
+        horizontalAlignment: Text.AlignHCenter
+        wrapMode: Text.WordWrap
+        color: Theme.secondaryTextColor
+        font.bold: true
+        text: "More V-Play benefits and features:"
+      }
+
+      AppText {
+        width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 2
+        anchors.horizontalCenter: parent.horizontalCenter
+        font.pixelSize: sp(12)
+        wrapMode: Text.WordWrap
+        color: Theme.secondaryTextColor
+        textFormat: AppText.RichText
+        text: "<style>li { margin-left: 0px; }</style><ul><li>60+ samples + demos, like this conference app</li>
+<li>Quick access to native device features like dialogs or camera</li>
+<li>Extensible with custom native code</li>
+<li>Cross-platform plugins for monetization, analytics, social integration or push notifications</li>
+<li>Powerful for feature-rich UIs + animations</li>
+<li>Responsive Layout Support</li>
+<li>Easy to learn in days</li>
+<li>Support for 3D, sensors + more</li></ul>"
+      }
+
+      // spacer
+      Item {
+        width: parent.width
+        height: dp(Theme.navigationBar.defaultBarItemPadding)
+      }
+
+      // bottom CTA
+      Column {
+        width: parent.width - dp(Theme.navigationBar.defaultBarItemPadding) * 2
+        anchors.horizontalCenter: parent.horizontalCenter
+        spacing: dp(Theme.navigationBar.defaultBarItemPadding) * 0.5
+
+        AppText {
+          text: "Get the V-Play SDK for free and create awesome games or apps:"
+          width: parent.width
+          horizontalAlignment: Text.AlignHCenter
+          font.pixelSize: sp(12)
+        }
+
+        AppButton {
+          anchors.horizontalCenter: parent.horizontalCenter
+          text: "More Info & Download"
+          onClicked: confirmOpenUrl("https://v-play.net/wad-conference-in-app")
+          verticalMargin: 0
+        }
+      }
+
+      // spacer
       Item {
         width: parent.width
         height: dp(Theme.navigationBar.defaultBarItemPadding)
@@ -225,10 +335,10 @@ The V-Play SDK allows native user experience with a single code base and fluid a
 
 
   // confirmOpenUrl - display confirm dialog before opening v-play url
-  function confirmOpenUrl() {
-    NativeDialog.confirm("Leave the app?","This action opens your browser to visit https://v-play.net/qws-conference-in-app.",function(ok) {
+  function confirmOpenUrl(url) {
+    NativeDialog.confirm("Leave the app?","This action opens your browser to visit "+url+".",function(ok) {
       if(ok)
-        nativeUtils.openUrl("https://v-play.net/qws-conference-in-app")
+        nativeUtils.openUrl(url)
     })
   }
 
