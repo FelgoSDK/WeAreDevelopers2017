@@ -168,9 +168,9 @@ Rectangle {
         Icon {
           id: roomIcon
           Layout.preferredWidth: implicitWidth
-          Layout.alignment: Qt.AlignVCenter
+          Layout.alignment: Qt.AlignCenter
           icon: IconType.mapmarker
-          color: Theme.tintColor
+          color: !small ? Theme.tintColor : _.iconColor
           visible: roomTxt.visible
         }
 
@@ -179,7 +179,7 @@ Rectangle {
           Layout.fillWidth: true
           Layout.alignment: Qt.AlignVCenter
           wrapMode: Text.WordWrap
-          text: "Show " + talk.room
+          text: !small ? "Show " + talk.room : talk.room
           color: isListItem ? _.iconColor : Theme.tintColor
           visible: talk.room.length > 0
 
