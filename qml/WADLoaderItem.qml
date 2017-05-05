@@ -167,7 +167,7 @@ Rectangle {
     var nowTime = new Date().getTime()
     var eveningBeforeConferenceTime = new Date("2017-05-10T21:00.000+0200").getTime()
     if(nowTime < eveningBeforeConferenceTime) {
-      var text = "V-Play wishes all the best for WeAreDevelopers 2017!"
+      var text = "V-Play wishes all the best for your conference!"
       var notification = {
         notificationId: -1,
         message: text,
