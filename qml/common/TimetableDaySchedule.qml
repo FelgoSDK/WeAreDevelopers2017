@@ -214,7 +214,7 @@ Item {
 
   // getEventDateTime - build JS date object for event
   function getEventDateTime(event) {
-    var date = new Date(event.day+"T"+event.start+".000-0700")
+    var date = new Date(event.day+"T"+event.start+".000+0200")
     return date
   }
 

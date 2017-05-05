@@ -152,19 +152,22 @@ Rectangle {
       return
 
     notificationManager.cancelAllNotifications()
-    if(!DataModel.notificationsEnabled || !DataModel.favorites || !DataModel.talks)
+    if(!DataModel.notificationsEnabled) // do not schedule notification if user disabled it
       return
 
-    for(var idx in DataModel.favorites) {
-      var talkId = DataModel.favorites[idx]
-      scheduleNotificationForTalk(talkId)
+    // skip notifications for talks if DataModel not ready
+    if(DataModel.favorites && DataModel.talks) {
+      for(var idx in DataModel.favorites) {
+        var talkId = DataModel.favorites[idx]
+        scheduleNotificationForTalk(talkId)
+      }
     }
 
-    // add notification before world summit starts!
+    // add notification before conference starts!
     var nowTime = new Date().getTime()
-    var eveningBeforeConferenceTime = new Date("2016-10-18T21:00.000-0700").getTime()
+    var eveningBeforeConferenceTime = new Date("2017-05-10T21:00.000+0200").getTime()
     if(nowTime < eveningBeforeConferenceTime) {
-      var text = "V-Play wishes all the best for Qt World Summit 2016!"
+      var text = "V-Play wishes all the best for WeAreDevelopers 2017!"
       var notification = {
         notificationId: -1,
         message: text,
@@ -181,7 +184,7 @@ Rectangle {
       var text = talk["title"]+" starts "+talk.start+" at "+talk["room"]+"."
 
       var nowTime = new Date().getTime()
-      var utcDateStr = talk.day+"T"+talk.start+".000-0700"
+      var utcDateStr = talk.day+"T"+talk.start+".000+0200"
       var notificationTime = new Date(utcDateStr).getTime()
       notificationTime = notificationTime - 10 * 60 * 1000 // 10 minutes before
 
