@@ -89,7 +89,7 @@ Page {
               if (Theme.isIos){
                 Qt.openUrlExternally("http://maps.apple.com/?q=Karl-Farkas-Gasse 19, 1030 Vienna, Austria")
               } else {
-                Qt.openUrlExternally("geo:0,0?q=48.187899,16.4022873")
+                Qt.openUrlExternally("geo:0,0?q=48.187892,16.404473")
               }
             }
           }
