@@ -251,7 +251,14 @@ Item {
     }
 
     storage.setValue("favorites", dataModel.favorites)
-    favoritesChanged()
+    signalFavoritesChanged.restart() // signal favorites changed with timer (to not block UI)
+    return dataModel.isFavorite(item.id)
+  }
+
+  Timer {
+    id: signalFavoritesChanged
+    interval: 50
+    onTriggered: dataModel.favoritesChanged()
   }
 
   // isFavorite - check if item is favorited

@@ -231,7 +231,9 @@ Item {
           fixedPosition: true
           touchPoint: Qt.point(width * 0.5, height * 0.5)
           anchors.centerIn: parent
-          onClicked: scheduleListItem.toggleFavorite()
+          onClicked: {
+            favoriteIcon.isFavorite = scheduleListItem.toggleFavorite()
+          }
         }
       }
 
@@ -297,6 +299,6 @@ Item {
 
   // add or remove item from favorites
   function toggleFavorite() {
-    DataModel.toggleFavorite(item)
+    return DataModel.toggleFavorite(item)
   }
 }

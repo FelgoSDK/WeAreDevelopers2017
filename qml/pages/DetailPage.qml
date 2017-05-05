@@ -12,7 +12,10 @@ Page {
     ActivityIndicatorBarItem { visible: DataModel.loading || detailPage.loading ? true : false }
     IconButtonBarItem {
       icon: detailPage.isFavorite ? IconType.star : IconType.staro
-      onClicked: detailPage.toggleFavorite()
+      onClicked: {
+        detailPage.isFavorite = detailPage.toggleFavorite()
+        talkRow.isFavorite = detailPage.isFavorite
+      }
       showItem: showItemAlways
     }
     IconButtonBarItem {
@@ -30,7 +33,10 @@ Page {
   // update UI when favorites change
   Connections {
     target: DataModel
-    onFavoritesChanged: detailPage.isFavorite = item && item.id ? DataModel.isFavorite(item.id) : false
+    onFavoritesChanged: {
+      detailPage.isFavorite = item && item.id ? DataModel.isFavorite(item.id) : false
+      talkRow.isFavorite = detailPage.isFavorite
+    }
   }
 
   // private members
@@ -219,8 +225,12 @@ Page {
           }
 
           TalkRow {
+            id: talkRow
             talk: item
-            onFavoriteClicked: toggleFavorite()
+            onFavoriteClicked: {
+              talkRow.isFavorite = toggleFavorite()
+              detailPage.isFavorite = talkRow.isFavorite
+            }
             onRoomClicked: detailPage.navigationStack.push(Qt.resolvedUrl("RoomPage.qml"), { room: item.room })
           }
         }
@@ -375,6 +385,6 @@ Page {
 
   // add or remove item from favorites
   function toggleFavorite() {
-    DataModel.toggleFavorite(item)
+    return DataModel.toggleFavorite(item)
   }
 } // page

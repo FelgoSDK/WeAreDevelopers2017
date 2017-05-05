@@ -195,7 +195,7 @@ Item {
 
   // add or remove item from favorites
   function toggleFavorite(item) {
-    DataModel.toggleFavorite(item)
+    return DataModel.toggleFavorite(item)
   }
 
   // itemIndexForTime - get item index for time in ms

@@ -117,6 +117,7 @@ Page {
         id: speakerRepeater
         model: DataModel.speakers[speakerID].talks
         delegate: TalkRow {
+          id: talkRow
           talk: DataModel.talks && DataModel.talks[modelData]
           isListItem: true
           small: true
@@ -124,14 +125,22 @@ Page {
             speakerDetailPage.navigationStack.push(Qt.resolvedUrl("DetailPage.qml"), { item: talk })
           }
           onFavoriteClicked: {
-            toggleFavorite(talk)
+            talkRow.isFavorite = toggleFavorite(talk)
           }
+
+          Connections {
+            target: DataModel
+            onFavoritesChanged: {
+              talkRow.isFavorite = talkRow.talk && talkRow.talk.id ? DataModel.isFavorite(talkRow.talk.id) : false
+            }
+          }
+
         }
       }
     }
   }
 
   function toggleFavorite(item) {
-    DataModel.toggleFavorite(item)
+    return DataModel.toggleFavorite(item)
   }
 }
