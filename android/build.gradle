@@ -41,7 +41,7 @@ android {
 
     buildToolsVersion androidBuildToolsVersion
 
-    defaultConfig.applicationId = "net.vplay.demos.wearedevs2017"
+    defaultConfig.applicationId = "net.vplay.demos.varedevs"
 
     sourceSets {
         main {
