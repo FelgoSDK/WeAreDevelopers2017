@@ -701,8 +701,8 @@
                             "id": "4780",
                             "room": "GREEN STAGE",
                             "title": "Appium: Automation for AppsMobileFirst in an Enterprise Context",
-                            "start": "17:0017:20",
-                            "end": "17:2017:30",
+                            "start": "17:00",
+                            "end": "17:30",
                             "duration": "20 min.Lightning Talk  10 min.",
                             "description": "Appium: Automation for AppsA survey of all the capabilities of Appium including automating mobile apps, hybrid mobile apps, Windows apps, Desktop apps, and TV apps.",
                             "persons": [
