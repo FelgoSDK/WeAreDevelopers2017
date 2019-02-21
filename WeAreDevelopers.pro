@@ -1,5 +1,7 @@
+# Note: This project is no longer compatible with the latest Felgo SDK. You can find a the latest Felgo Conference App Demo here: https://github.com/FelgoSDK/Qt-World-Summit-Conference-App
+
 # allows to add DEPLOYMENTFOLDERS and links to the V-Play library and QtCreator auto-completion
-CONFIG += v-play
+CONFIG += felgo
 
 qmlFolder.source = qml
 DEPLOYMENTFOLDERS += qmlFolder # comment for publishing
@@ -46,7 +48,7 @@ ios {
     OTHER_FILES += $$QMAKE_INFO_PLIST
 
     # activate plugins
-    VPLAY_PLUGINS += onesignal
+    FELGO_PLUGINS += onesignal
 }
 
 # set application icons for win and macx

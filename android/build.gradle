@@ -19,8 +19,8 @@ apply plugin: 'com.android.application'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'net.vplay.plugins:plugin-onesignal:2.+' // one signal plugin
-    compile 'net.vplay.plugins:plugin-notification:2.+' // local notifications
+    compile 'net.vplay.plugins:plugin-onesignal:3.+' // one signal plugin
+    compile 'net.vplay.plugins:plugin-notification:3.+' // local notifications
 }
 
 android {
